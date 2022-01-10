@@ -1,0 +1,406 @@
+WindowManager:
+    Splash:
+        name: 'splash'
+    LogIn:
+        name: 'login'
+    CreateAccount:
+        name: 'create'
+    PasswordScreen:
+        name: 'pass'
+    Saved:
+        name: 'save'
+
+<Splash>:
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'Images\star.jpg'
+    MDCard:
+        size_hint: None, None
+        border_radius: 20
+        radius: [15]
+        size: 500, 500
+        elevation: 100
+        pos_hint: {'center_x':.5, 'center_y':.5}
+        orientation: 'vertical'
+        MDLabel:
+            id: my_label
+            markup: True
+            text: "[u]Password Generator 3000[/u]"
+            font_name: 'Arialbd'
+            font_size: 32
+            color: 35/255, 83/255, 161/255, 1
+            halign: 'center'
+        Image:
+            source: 'Images\locksplash.jpg'
+            allow_stretch: True
+        Widget:
+            size_hint_y: None
+        MDBoxLayout:
+            size_hint_y: None
+            height: 30
+            orientation: 'horizontal'
+            Widget: 
+
+            MDFillRoundFlatButton:
+                text: "Quit"
+                on_press: app.stop()
+                pos_hint: {'center_x':.5}
+                theme_text_color: "Custom"
+                md_bg_color: 35/255, 83/255, 161/255, 1
+                text_color: 0, 0, 0, 1
+            
+            Widget:
+
+            MDFillRoundFlatButton:
+                text: "Proceed"
+                on_press: root.manager.current = 'login'
+                pos_hint: {'center_x': .5}
+                theme_text_color: "Custom"
+                md_bg_color: 35/255, 83/255, 161/255, 1
+                text_color: 0, 0, 0, 1
+            
+            Widget:
+
+        Widget:
+            size_hint_y: None
+            height: 20
+        
+
+
+<LogIn>:
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'Images\star.jpg'
+    MDCard:
+        border_radius: 20
+        radius: [15]
+        size_hint: None, None
+        size: 500, 500
+        elevation: 10
+        pos_hint: {'center_x':.5, 'center_y': .5}
+        orientation: 'vertical'
+        MDBoxLayout:
+            orientation: 'vertical'
+            size: root.width, root.height
+            spacing: 20
+            MDToolbar:
+                title: 'Welcome Back!'
+                md_bg_color: (35/255, 83/255, 161/255, 1)
+                icon_right: 'account'
+                specific_text_color: (1, 1, 1, 1)
+            MDLabel:
+                id: log
+                font_size: 32
+                text: "Please log in below!"
+                text_font: 'Arialbd'
+                halign: 'center'
+            MDTextFieldRound:
+                id: user
+                hint_text: "Username"
+                normal_color: app.theme_cls.accent_color
+                icon_right: 'account'
+                write_tab: False
+                size_hint_x: None
+                width: 300
+                font_size: 18
+                pos_hint: {'center_x':.5}
+            MDTextFieldRound:
+                id: userpass
+                hint_text: "Password"
+                normal_color: app.theme_cls.accent_color
+                icon_right: 'eye-off'
+                write_tab: False
+                size_hint_x: None
+                width: 300
+                font_size: 18
+                pos_hint: {'center_x':.5}
+                password: True
+            Widget:
+                size_hint_y: None
+                height: 15
+            MDFillRoundFlatButton:
+                text: "Log In"
+                pos_hint: {'center_x': .5}
+                theme_text_color: "Custom"
+                md_bg_color: 35/255, 83/255, 161/255, 1
+                text_color: 0, 0, 0, 1
+                on_press: 
+                    root.manager.current = 'pass'
+                    userpass.text = ''
+                    user.text = ''
+            MDTextButton:
+                markup: True
+                text: "[i]Create new account[/i]"
+                pos_hint: {'center_x': .5}
+                on_press:
+                    root.manager.current = 'create'
+                    root.manager.transition.direction = 'down'
+            Widget:
+                size_hint_y: None
+                height: 40
+
+<CreateAccount>:
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'Images\star.jpg'
+    MDCard:
+        border_radius: 20
+        radius: [15]
+        size_hint: None, None
+        size: 500, 500
+        elevation: 10
+        pos_hint: {'center_x':.5, 'center_y': .5}
+        orientation: 'vertical'
+        MDBoxLayout:
+            orientation: 'vertical'
+            size: root.width, root.height
+            spacing: 20
+            MDToolbar:
+                title: 'Welcome new user!'
+                md_bg_color: (35/255, 83/255, 161/255, 1)
+                specific_text_color: (1, 1, 1, 1)
+            MDLabel:
+                markup: True
+                text: "[b]Please enter account details below[/b]"
+                halign: 'center'
+                pos_hint: {'center_x':.5}
+            MDTextFieldRound:
+                id: user
+                normal_color: app.theme_cls.accent_color
+                hint_text: "Username"
+                icon_right: 'account'
+                write_tab: False
+                size_hint_x: None
+                width: 300
+                font_size: 18
+                pos_hint: {'center_x':.5}
+            MDTextFieldRound:
+                id: userpass
+                hint_text: "Password"
+                normal_color: app.theme_cls.accent_color
+                icon_right: 'eye-off'
+                write_tab: False
+                size_hint_x: None
+                width: 300
+                font_size: 18
+                pos_hint: {'center_x':.5}
+                password: True
+            MDTextFieldRound:
+                id: second
+                hint_text: "Re-enter Password"
+                normal_color: app.theme_cls.accent_color
+                icon_right: 'eye-off'
+                write_tab: False
+                size_hint_x: None
+                width: 300
+                font_size: 18
+                pos_hint: {'center_x':.5}
+                password: True
+                on_text_validate: root.verify_pass()
+            Widget:
+                size_hint_y: None
+                height: 20
+            MDFillRoundFlatButton:
+                text: 'Create Account'
+                pos_hint: {'center_x': .5}
+                theme_text_color: "Custom"
+                md_bg_color: 35/255, 83/255, 161/255, 1
+                text_color: 0, 0, 0, 1
+                on_press: root.verify_pass()
+            Widget:
+            
+
+
+<PasswordScreen>:
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'Images\star.jpg'
+    MDCard:
+        border_radius: 20
+        radius: [15]
+        id: card
+        size_hint: None, None
+        size: 700, 575
+        pos_hint: {'center_x':.5, 'center_y': .5}
+        orientation: 'vertical'
+        MDBoxLayout:
+            orientation: 'vertical'
+            type_height: 'small'
+            MDToolbar:
+                md_bg_color: (35/255, 83/255, 161/255, 1)
+                specific_text_color: (1, 1, 1, 1)
+                title: 'Welcome to your password manager'  #Maybe include in title the name of the user?
+            MDBoxLayout:
+                spacing: 10
+                orientation: 'vertical'
+                MDLabel:
+                    font_name: 'Arialbd'
+                    text: "Generated Password Below"
+                    halign: 'center'
+                    font_size: 18
+                MDTextFieldRect:
+                    id: generated
+                    size_hint: None, None
+                    size: 300, 40
+                    pos_hint: {'center_x': .5}
+                    normal_color: app.theme_cls.accent_color
+                    hint_text: 'Max Length 25 characters'
+
+                #Grab length from user
+                MDLabel:
+                    text: 'Please enter desired length below'
+                    halign: 'center'
+
+                MDTextFieldRect:
+                    id: length
+                    size_hint: None, None
+                    size: 100, 40
+                    pos_hint: {'center_x': .5}
+                    normal_color: app.theme_cls.accent_color
+                    required: True
+
+
+                #Below we get to the textboxes for the desired # of each char type
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    spacing: 0
+                    size: card.width, card.height
+                    MDLabel:
+                        text: 'How many characters to include?'
+                        halign: 'center'
+                    MDTextFieldRound:
+                        id: pass_letter
+                        text_hint: "Enter # chars desired"
+                        normal_color: app.theme_cls.accent_color
+                        size_hint_x: None
+                        width: 100
+                    Widget:
+
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size: card.width, card.height
+                    MDLabel:
+                        text: 'How many digits to include?'
+                        halign: 'center'
+                    MDTextFieldRound:
+                        id: pass_number
+                        text_hint: "Enter # digits desired"
+                        normal_color: app.theme_cls.accent_color
+                        size_hint_x: None
+                        width: 100
+                    Widget:
+
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size: card.width, card.height
+                    MDLabel:
+                        text: 'How many specials to include?'
+                        halign: 'center'
+                    MDTextFieldRound:
+                        id: pass_special
+                        text_hint: "Enter # specials desired"
+                        normal_color: app.theme_cls.accent_color
+                        size_hint_x: None
+                        width: 100
+                    Widget:
+
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size: root.width, root.height
+                    Widget:
+                        size_hint_x: None
+                        width: 15
+                    MDFillRoundFlatButton:
+                        text: "Log Out"
+                        theme_text_color: "Custom"
+                        md_bg_color: 35/255, 83/255, 161/255, 1
+                        text_color: 0, 0, 0, 1
+                        on_press: 
+                            root.manager.current = 'login'
+                            root.manager.transition.direction = 'right'
+                    Widget:
+                        size_hint_x: None
+                        width: 200
+                    MDFillRoundFlatButton:
+                        text: "Generate"
+                        theme_text_color: "Custom"
+                        md_bg_color: 35/255, 83/255, 161/255, 1
+                        text_color: 0, 0, 0, 1
+                        on_press: root.buildPassword()
+                    Widget:
+                        #Spacing
+                    MDFillRoundFlatButton:
+                        text: "View Saved Passwords"
+                        theme_text_color: "Custom"
+                        md_bg_color: 35/255, 83/255, 161/255, 1
+                        text_color: 0, 0, 0, 1
+                        on_press: 
+                            root.manager.current = 'save'
+                            root.manager.transition.directon = 'left'
+                    Widget:
+                        size_hint_x: None
+                        width: 15
+                Widget:
+                    size_hint_y: None
+                    height: 5
+
+<Saved>:
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'Images\star.jpg'
+    MDCard:
+        size_hint: None, None
+        border_radius: 20
+        radius: [15]
+        size: 500, 500
+        elevation: 100
+        pos_hint: {'center_x':.5, 'center_y':.5}
+        orientation: 'vertical'
+        MDToolbar:
+            title: 'Saved Passwords'
+            type_height: 'small'
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDList:
+                TwoLineIconListItem:
+                    id: item1
+                    text: 'GitHub'
+                    secondary_text: 'Password #1'
+                    IconLeftWidget:
+                        icon: 'eye-off'
+                TwoLineIconListItem:
+                    id: item1
+                    text: 'Youtube'
+                    secondary_text: 'Password #2'
+                    IconLeftWidget:
+                        icon: 'eye-off'
+                TwoLineIconListItem:
+                    id: item1
+                    text: 'Gmail'
+                    secondary_text: 'Password #3'
+                    IconLeftWidget:
+                        icon: 'eye-off'
+                TwoLineIconListItem:
+                    id: item1
+                    text: 'Reddit'
+                    secondary_text: 'Password #4'
+                    IconLeftWidget:
+                        icon: 'eye-off'
+            MDLabel:
+                text: 'Your saved passwords can be seen above'
+                halign: 'center'
+        MDToolbar:
+
+
+
+                
