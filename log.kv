@@ -396,10 +396,35 @@ WindowManager:
                     secondary_text: 'Password #4'
                     IconLeftWidget:
                         icon: 'eye-off'
-            MDLabel:
-                text: 'Your saved passwords can be seen above'
-                halign: 'center'
-        MDToolbar:
+        MDBoxLayout:
+            size_hint_y: None
+            height: 140
+            orientation: 'horizontal'
+            Widget:
+                size_hint_x: None
+                width: 15
+            MDFillRoundFlatButton:
+                text: "Generate Another"
+                theme_text_color: "Custom"
+                md_bg_color: 35/255, 83/255, 161/255, 1
+                text_color: 0, 0, 0, 1
+                on_press: 
+                    root.manager.transition.directon = 'right'
+                    root.manager.current = 'pass'
+            Widget:
+                #Spacing
+            MDFillRoundFlatButton:
+                text: "Exit"
+                theme_text_color: "Custom"
+                md_bg_color: 35/255, 83/255, 161/255, 1
+                text_color: 0, 0, 0, 1
+                on_press: app.stop()
+            Widget:
+                size_hint_x: None
+                width: 15
+        Widget:
+            size_hint_y:None
+            height: 10
 
 
 
