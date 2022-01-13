@@ -395,6 +395,7 @@ WindowManager:
                         md_bg_color: 35/255, 83/255, 161/255, 1
                         text_color: 0, 0, 0, 1
                         on_press: 
+                            root.clear()
                             root.manager.current = 'login'
                             root.manager.transition.direction = 'right'
                     Widget:
@@ -415,7 +416,7 @@ WindowManager:
                         text_color: 0, 0, 0, 1
                         on_press: 
                             root.manager.current = 'save'
-                            root.manager.transition.directon = 'left'
+                            root.manager.transition.direction = 'left'
                     Widget:
                         size_hint_x: None
                         width: 15
@@ -482,7 +483,7 @@ WindowManager:
                 md_bg_color: 35/255, 83/255, 161/255, 1
                 text_color: 0, 0, 0, 1
                 on_press: 
-                    root.manager.transition.directon = 'right'
+                    root.manager.transition.direction = 'right'
                     root.manager.current = 'pass'
             Widget:
                 #Spacing

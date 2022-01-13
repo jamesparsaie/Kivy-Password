@@ -38,6 +38,7 @@ class LogIn(Screen):
         password = self.ids.userpass.text
         if keyring.get_password(service_id, user) == password:
             self.manager.current= 'pass'
+            self.manager.transition.direction = 'left'
         else:
             self.dialog.open()
 
@@ -97,6 +98,8 @@ class CreateAccount(Screen):
 
 
 class PasswordScreen(Screen):
+    
+    
     def buildPassword(self):
         
         #Create dialog box to handle errors!
@@ -172,6 +175,9 @@ class PasswordScreen(Screen):
             self.ids.pass_special.text = ''
             self.ids.length.text = ''
     
+    def clear(self):
+        self.manager.get_screen('login').ids.user.text = ''
+        self.manager.get_screen('login').ids.userpass.text = ''
     
     def dismissLength(self, obj):
         self.length.dismiss()
