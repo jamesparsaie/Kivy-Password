@@ -23,8 +23,12 @@ chars = list(string.ascii_letters+string.digits+"!@#$%^&*()")
 
 
 #This is a popup to ensure validation
+
+
 class Splash(Screen):
     pass
+
+
 class LogIn(Screen):
     
     def verify(self):
@@ -37,11 +41,39 @@ class LogIn(Screen):
         else:
             self.dialog.open()
 
-
     def dismiss(self, obj):
         self.dialog.dismiss()
         self.ids.user.text = ''
         self.ids.userpass.text = ''
+
+
+
+class DeleteAccount(Screen):
+    
+    def delete_pass(self):
+        user = self.ids.user.text
+        closeFail = MDFlatButton(text = 'Close', on_press = self.dismissFail)
+        closeSuccess = MDFlatButton(text = 'Close', on_press = self.dismissSuccess)
+        self.fail = MDDialog(title = 'Error Encountered', text = 'This user does not exist!', buttons = [closeFail])
+        self.success = MDDialog(title = 'Success!', text = 'This user has been deleted from the database', buttons = [closeSuccess])
+        try:
+            keyring.delete_password(service_id, user)
+            self.success.open()
+        except keyring.errors.PasswordDeleteError:
+            self.fail.open()
+            user = ''
+
+    def dismissSuccess(self, obj):
+        self.success.dismiss()
+        self.manager.current = 'login'
+
+    def dismissFail(self, obj):
+        self.fail.dismiss()
+        self.ids.user.text = ''
+            
+        
+
+
 class CreateAccount(Screen):
 
 

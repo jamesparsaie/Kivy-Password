@@ -3,6 +3,8 @@ WindowManager:
         name: 'splash'
     LogIn:
         name: 'login'
+    DeleteAccount:
+        name: 'delete'
     CreateAccount:
         name: 'create'
     PasswordScreen:
@@ -137,9 +139,78 @@ WindowManager:
                 on_press:
                     root.manager.current = 'create'
                     root.manager.transition.direction = 'down'
+            MDTextButton:
+                markup: True
+                text: "[i]Delete Account[/i]"
+                pos_hint: {'center_x': .5}
+                on_press:
+                    root.manager.current = 'delete'
+                    root.manager.transition.direction = 'up'
             Widget:
                 size_hint_y: None
                 height: 40
+<DeleteAccount>:
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'Images\star.jpg'
+    MDCard:
+        size_hint: None, None
+        border_radius: 20
+        radius: [15]
+        size: 500, 500
+        elevation: 100
+        pos_hint: {'center_x':.5, 'center_y':.5}
+        orientation: 'vertical'
+        MDBoxLayout:
+            orientation: 'vertical'
+            size: root.width, root.height
+            spacing: 20
+            MDToolbar:
+                title: "Delete Existing Account"
+                md_bg_color: (35/255, 83/255, 161/255, 1)
+                icon_right: 'account'
+                specific_text_color: (1, 1, 1, 1)
+            Widget:
+                size_hint_y: None
+                height: 10
+            MDLabel:
+                markup: True
+                text: "[b]Enter username you wish to delete below[/b]"
+                halign: 'center'
+                pos_hint: {'center_x':.5}
+            MDTextFieldRound:
+                id: user
+                normal_color: app.theme_cls.accent_color
+                hint_text: "Username"
+                icon_right: 'account'
+                write_tab: False
+                size_hint_x: None
+                width: 300
+                font_size: 18
+                pos_hint: {'center_x':.5}
+            Widget:
+                size_hint_y: None
+                height: 10
+            MDFillRoundFlatButton:
+                text: 'Delete Account'
+                pos_hint: {'center_x': .5}
+                theme_text_color: "Custom"
+                md_bg_color: 35/255, 83/255, 161/255, 1
+                text_color: 0, 0, 0, 1
+                on_press: root.delete_pass()
+            MDFillRoundFlatButton:
+                text: 'Return'
+                pos_hint: {'center_x': .5}
+                theme_text_color: "Custom"
+                md_bg_color: 35/255, 83/255, 161/255, 1
+                text_color: 0, 0, 0, 1
+                on_press:
+                    root.manager.current = 'login'
+                    root.manager.transition.direction = 'down'
+            Widget:
+                #Spacing
 
 <CreateAccount>:
     canvas:
