@@ -129,9 +129,7 @@ WindowManager:
                 md_bg_color: 35/255, 83/255, 161/255, 1
                 text_color: 0, 0, 0, 1
                 on_press: 
-                    root.manager.current = 'pass'
-                    userpass.text = ''
-                    user.text = ''
+                    root.verify()
             MDTextButton:
                 markup: True
                 text: "[i]Create new account[/i]"
@@ -171,7 +169,7 @@ WindowManager:
                 halign: 'center'
                 pos_hint: {'center_x':.5}
             MDTextFieldRound:
-                id: user
+                id: username
                 normal_color: app.theme_cls.accent_color
                 hint_text: "Username"
                 icon_right: 'account'
@@ -216,7 +214,9 @@ WindowManager:
             Widget:
             
 
-
+#TODO: Add textinput to allow user to specify what site this is tied to
+#     Make this a global variable that can be accessed on the next page?
+#     Need to make function that pulls generated password and site name, creates new list item with that information
 <PasswordScreen>:
     canvas:
         Rectangle:
@@ -369,6 +369,8 @@ WindowManager:
         MDToolbar:
             title: 'Saved Passwords'
             type_height: 'small'
+            md_bg_color: (35/255, 83/255, 161/255, 1)
+            specific_text_color: (1, 1, 1, 1)
         MDBoxLayout:
             orientation: 'vertical'
             MDList:
@@ -424,7 +426,7 @@ WindowManager:
                 width: 15
         Widget:
             size_hint_y:None
-            height: 10
+            height: 8
 
 
 

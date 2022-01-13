@@ -1,5 +1,6 @@
 import string
 import random
+import keyring
 from kivymd.app import MDApp
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -7,34 +8,54 @@ from kivy.properties import ObjectProperty, StringProperty
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.dialog import MDDialog
-from kivy.clock import Clock
 from kivy.uix.popup import Popup
+import sqlite3
+
+service_id = 'PassWordGenerator'
 
 
-
+#List reference for how to populate password field from generator
 alphabet = list(string.ascii_letters)
 digits = list(string.digits)
 special = list("!@#$%^&*()")
 chars = list(string.ascii_letters+string.digits+"!@#$%^&*()")
 
+
+
 #This is a popup to ensure validation
 class Splash(Screen):
     pass
 class LogIn(Screen):
-    pass
+    
+    def verify(self):
+        close = MDFlatButton(text = 'Close', on_press = self.dismiss)
+        self.dialog = MDDialog(title = 'Error Encountered', text = 'This user does not exist! \n\nPlease create an account', buttons = [close])
+        user = self.ids.user.text
+        password = self.ids.userpass.text
+        if keyring.get_password(service_id, user) == password:
+            self.manager.current= 'pass'
+        else:
+            self.dialog.open()
+
+
+    def dismiss(self, obj):
+        self.dialog.dismiss()
+        self.ids.user.text = ''
+        self.ids.userpass.text = ''
 class CreateAccount(Screen):
 
 
     def verify_pass(self):
         close = MDFlatButton(text = 'Close', on_press = self.dismiss)
         self.dialog = MDDialog(title = 'Error Encountered', text = 'Please ensure that passwords match!', buttons = [close])
+        user = self.ids.username.text
         first = self.ids.userpass.text
         second = self.ids.second.text
         if first != second:
             self.dialog.open()
         else:
-            self.manager.transition.direction = 'left'
-            self.manager.current = 'pass'
+            keyring.set_password(service_id, user, first)
+            self.manager.current = 'login'
 
             
     def dismiss(self, obj):
@@ -83,6 +104,10 @@ class PasswordScreen(Screen):
 
         random.shuffle(password)
 
+        #Dialog box to inform user we are strengthening their password to fill in remaining space
+        #     Triggers if user desired length > total # of each char type
+        close = MDFlatButton(text = 'Close', on_press = self.dismissFill)
+        self.fill = MDDialog(title = 'Filling in the gaps', text = 'Adding in additional random characters to satisfy length', buttons = [close], auto_dismiss = False)
         #Check to ensure that total count is less than the password length
         if(total_count < pass_length):
             if total_count==0:  #Ensure no overlap of error messages
@@ -91,6 +116,10 @@ class PasswordScreen(Screen):
                 random.shuffle(chars)  #Shuffle the created password
                 for i in range(pass_length - total_count):
                     password.append(random.choice(chars))
+                self.fill.open()
+
+
+
 
         close = MDFlatButton(text = 'Close', on_press = self.dismissLength)
         self.length = MDDialog(title = 'Error Encountered', text = 'Please ensure entered char total less than length', buttons = [close], auto_dismiss = False)
@@ -110,12 +139,17 @@ class PasswordScreen(Screen):
             self.ids.pass_letter.text = ''
             self.ids.pass_special.text = ''
             self.ids.length.text = ''
+    
+    
     def dismissLength(self, obj):
         self.length.dismiss()
     
     
     def dismissDigit(self, obj):
         self.digit.dismiss()
+
+    def dismissFill(self, obj):
+        self.fill.dismiss()
 
 class Saved(Screen):
     pass
