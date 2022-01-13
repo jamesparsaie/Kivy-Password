@@ -8,9 +8,9 @@
       2. Practice with Kivy and make fake landing pages ✓
       3. Create a basic framework for splash page, log in, account creation, and main page for generator ✓
       4. Integration of Kivy framework with python password generator function ✓
-      5. Integration of database to ensure user has access to their own unique entries (Future)
-            Note: This will be adding functionality to login page as well as create user page
-      6. Encrypt these entries or encrypt entire database to ensure security and privacy (Future)
+      5. Ensure create account and log in screens are functioning with some level of encryption ✓
+         Note: Make this stronger possibly with database usage and encrypting entries (Future)
+      6. Integration of database into application to track users, and entries better (Future)
       7. Make the app look more eye friendly (Future)
       
    After all these tasks have been completed this project will be considered finished
