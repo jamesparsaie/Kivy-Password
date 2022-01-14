@@ -121,6 +121,7 @@ WindowManager:
                 font_size: 18
                 pos_hint: {'center_x':.5}
                 password: True
+                on_text_validate: root.verify()
             Widget:
                 size_hint_y: None
                 height: 15
@@ -130,8 +131,7 @@ WindowManager:
                 theme_text_color: "Custom"
                 md_bg_color: 35/255, 83/255, 161/255, 1
                 text_color: 0, 0, 0, 1
-                on_press: 
-                    root.verify()
+                on_press: root.verify()
             MDTextButton:
                 markup: True
                 text: "[i]Create new account[/i]"
@@ -282,6 +282,15 @@ WindowManager:
                 md_bg_color: 35/255, 83/255, 161/255, 1
                 text_color: 0, 0, 0, 1
                 on_press: root.verify_pass()
+            MDFillRoundFlatButton:
+                text: 'Return'
+                pos_hint: {'center_x': .5}
+                theme_text_color: "Custom"
+                md_bg_color: 35/255, 83/255, 161/255, 1
+                text_color: 0, 0, 0, 1
+                on_press: 
+                    root.manager.current = 'login'
+                    root.manager.transition.direction = 'up'
             Widget:
             
 
@@ -324,19 +333,47 @@ WindowManager:
                     pos_hint: {'center_x': .5}
                     normal_color: app.theme_cls.accent_color
                     hint_text: 'Max Length 25 characters'
-
-                #Grab length from user
-                MDLabel:
-                    text: 'Please enter desired length below'
-                    halign: 'center'
-
-                MDTextFieldRect:
-                    id: length
-                    size_hint: None, None
-                    size: 100, 40
-                    pos_hint: {'center_x': .5}
-                    normal_color: app.theme_cls.accent_color
-                    required: True
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    #Grab length from user
+                    Widget:
+                        size_hint_x: None
+                        width: 40
+                    MDLabel:
+                        text: 'Enter desired length'
+                    Widget:
+                        #Spacing
+                    MDLabel:
+                        text: 'Enter ID for this password'
+                    Widget:
+                        size_hint_x: None
+                        width: 10
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    Widget:
+                        size_hint_x: None
+                        width: 60
+                    MDTextFieldRect:
+                        id: length
+                        size_hint: None, None
+                        width: 100
+                        pos_hint: {'center_x': .2}
+                        height: '30dp'
+                        normal_color: app.theme_cls.accent_color
+                        required: True
+                    Widget:
+                        #Spacing
+                    MDTextFieldRect:
+                        id: ID
+                        size_hint: None, None
+                        width: 100
+                        pos_hint: {'center_x': .7}
+                        normal_color: app.theme_cls.accent_color
+                        height: '30dp'
+                        required: True
+                    Widget:
+                        size_hint_x:None
+                        width: 80
 
 
                 #Below we get to the textboxes for the desired # of each char type
@@ -382,6 +419,17 @@ WindowManager:
                         size_hint_x: None
                         width: 100
                     Widget:
+                        size_hint_x: None
+                        width: 160
+                    MDFillRoundFlatButton:
+                        text: "Save Password"
+                        theme_text_color: "Custom"
+                        md_bg_color: 35/255, 83/255, 161/255, 1
+                        text_color: 0, 0, 0, 1
+                        on_press: root.save()
+                    Widget:
+                        size_hint_x: None
+                        width: 20
 
                 MDBoxLayout:
                     orientation: 'horizontal'
@@ -445,31 +493,9 @@ WindowManager:
             specific_text_color: (1, 1, 1, 1)
         MDBoxLayout:
             orientation: 'vertical'
-            MDList:
-                TwoLineIconListItem:
-                    id: item1
-                    text: 'GitHub'
-                    secondary_text: 'Password #1'
-                    IconLeftWidget:
-                        icon: 'eye-off'
-                TwoLineIconListItem:
-                    id: item1
-                    text: 'Youtube'
-                    secondary_text: 'Password #2'
-                    IconLeftWidget:
-                        icon: 'eye-off'
-                TwoLineIconListItem:
-                    id: item1
-                    text: 'Gmail'
-                    secondary_text: 'Password #3'
-                    IconLeftWidget:
-                        icon: 'eye-off'
-                TwoLineIconListItem:
-                    id: item1
-                    text: 'Reddit'
-                    secondary_text: 'Password #4'
-                    IconLeftWidget:
-                        icon: 'eye-off'
+            ScrollView:
+                MDList:
+                    id: main
         MDBoxLayout:
             size_hint_y: None
             height: 140
