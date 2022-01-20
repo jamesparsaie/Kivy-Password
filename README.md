@@ -1,9 +1,13 @@
 # KivyPassword
- <pre>
-  A password generator using both Kivy framework and SQL in order to create a local database for users to generate strong passwords and store them
+  A Password generator created using Kivy/KivyMD to create a graphical user interface. Features log in functionality where user credentials are encrypted by Keyring and stored in local Window Credentials Vault, as well as page to generate passwords and view saved passwords
   
   
+  # Why do this?
+  I worked on this project during the winter break from school where I was motivated to learn new languages and transport my resultant code beyond the terminal. I was tired of developing applications that were solely interacted with via the terminal command line. So, I decided to learn the library Kivy and its styling langauge to utilize a graphical user interface for my password generator application. In doing this project I learned a lot about both front end and backend work within a python application
   
+  This project sparked a massive interest for GUI's within me as well as utilizing python as a programming language for future projects
+  #
+  <pre>
   Dependencies:
       - Python
       - Kivy
