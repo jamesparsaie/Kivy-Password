@@ -1,4 +1,4 @@
-# KivyPassword
+# Project Overview
   A Password generator created using Kivy/KivyMD to create a graphical user interface. Features log in functionality where user credentials are encrypted by Keyring and stored in local Window Credentials Vault, as well as page to generate passwords and view saved passwords
   
   
